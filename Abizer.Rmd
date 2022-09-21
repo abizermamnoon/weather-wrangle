@@ -8,7 +8,7 @@ The data `MonthlyWeather.csv` contain monthly weather readings for 113 US airpor
 ## To do:
 Use `ggplot2` to create graphs that can answer the following questions. For each set of questions, create 1-2 graphs and use the graphs to answer the questions in a paragraph or two. You will be graded on the appropriateness and originality of your graphs, explanation/interpretation, and the readability of your R code.
 
-```{r}
+```{r include=FALSE}
 MonthlyWeather <- read.csv("https://raw.githubusercontent.com/mgelman/data/master/MonthlyWeather.csv")
 library(ggplot2)
 library(dplyr)
@@ -19,17 +19,39 @@ glimpse(MonthlyWeather)
 ```{r}
 library(ggplot2)
 library(dplyr)
-Consistent <- MonthlyWeather %>% select(month,year,avgTmpDiffF)  %>% group_by(month) %>% summarize(mn = mean(avgTmpDiffF)) %>% arrange(mn)
-Consistent %>% ggplot(aes(x = month, y = mn)) + geom_bar(stat = 'identity') + coord_flip() 
+Consistent <- MonthlyWeather %>% select(month,year,avgTmpDiffF)  %>% group_by(month) %>% summarize(mn = round(mean(avgTmpDiffF),2))%>% arrange(mn)
+Consistent %>% ggplot(aes(x = reorder(month,mn), y = mn-15)) + geom_bar(stat = 'identity')  + coord_flip() + xlab("Months") + ylab("Average Temperature Range (F) -15 ") + ggtitle("Average Temperature Range per Month")
 ```
+
+December has the most consistent daily temperature as the average of the daily max - min temperature in June is the lowest at 16.1 degrees F. June has the most variable daily temperatures as the average of the daily max - min temperature in June is the highest at 22.4 degrees F.
 ```{r}
 library(ggplot2)
 library(dplyr)
-Sunny <- MonthlyWeather %>% select(month,year,numSunDay)  %>% group_by(month) %>% summarize(mn = mean(numSunDay)) %>% arrange(mn)
-Sunny %>% ggplot(aes(x = month, y = mn)) + geom_bar(stat = 'identity') + coord_flip()
+Sunny <- MonthlyWeather %>% select(month,year,numSunDay)  %>% group_by(month) %>% summarize(mn = round(mean(numSunDay),2)) %>% arrange(desc(mn))
+Sunny %>% ggplot(aes(x = reorder(month,mn), y = mn - 5)) + geom_bar(stat = 'identity') + coord_flip() + xlab("Months") + ylab("Mean Number of Sunny Days - 5") + ggtitle("Average Number of Sunny Days per Month")
 ```
 
+December has on average 8.4 sunny days which is the lowest average number of sunny days a month has in the year. July has on average 15.3 sunny days which is the highest average number of sunny days a month has in the year.
+
 2. Consider 2016 weather data. Which regions or states  have the most consistent daily temps? the most variable daily temps? Which regions or states have the most sunny days? the fewest sunny days?
+```{r}
+library(ggplot2)
+MonthlyWeather$state <- tolower(MonthlyWeather$state)
+Temps <- MonthlyWeather %>% select(year,avgTmpDiffF,state,city,longitude,latitude) %>% filter(year == 2016) %>% group_by(state) %>% summarize(mn = round(mean(avgTmpDiffF),2))%>% arrange(mn)
+MainStates <- map_data("state")
+ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = mn), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Range of Temperatures in US States") + scale_fill_distiller(palette = "Oranges")
+```
+
+States in the East have more consistent temperatures than states in the West.
+
+```{r}
+library(ggplot2)
+MonthlyWeather$state <- tolower(MonthlyWeather$state)
+Temps <- MonthlyWeather %>% select(year,numSunDay ,state,city,longitude,latitude) %>% filter(year == 2016) %>% group_by(state) %>% summarize(mn = round(mean(numSunDay),2))%>% arrange(mn)
+MainStates <- map_data("state")
+ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = mn), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Number of Sunny Days in US States") + scale_fill_gradient(low = "lightpink", high = "purple4")
+```
+
 3. What criteria are important to you for choosing a city to live in? Create some figures that help determine which city you would live in based on that criteria. Would you choose one particular city to live in year round or would you migrate to different locations depending on the season?
 
 ## Turn in:
