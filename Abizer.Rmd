@@ -19,16 +19,16 @@ glimpse(MonthlyWeather)
 ```{r echo = FALSE}
 library(ggplot2)
 library(dplyr)
-Consistent <- MonthlyWeather %>% select(month,year,avgTmpDiffF)  %>% group_by(month) %>% summarize(mn = round(mean(avgTmpDiffF),2))%>% arrange(mn)
-Consistent %>% ggplot(aes(x = reorder(month,mn), y = mn-15)) + geom_bar(stat = 'identity')  + coord_flip() + xlab("Months") + ylab("Average Temperature Range (F) -15 ") + ggtitle("Average Temperature Range per Month")
+Consistent <- MonthlyWeather %>% select(month,year,avgTmpDiffF)  %>% group_by(month) %>% summarize(mn = round(mean(avgTmpDiffF,na.rm = TRUE),2))%>% arrange(mn)
+Consistent %>% ggplot(aes(x = reorder(month,mn), y = mn-15)) + geom_bar(stat = 'identity')  +  xlab("Months") + ylab("Average Temperature Range (F) -15 ") + coord_flip() +ggtitle("Average Temperature Range per Month") + geom_text(aes(label = mn),nudge_y = 0.5, size = 2)
 ```
 
 December has the most consistent daily temperature as the average of the daily max - min temperature in June is the lowest at 16.1 degrees F. June has the most variable daily temperatures as the average of the daily max - min temperature in June is the highest at 22.4 degrees F.
 ```{r echo = FALSE}
 library(ggplot2)
 library(dplyr)
-Sunny <- MonthlyWeather %>% select(month,year,numSunDay)  %>% group_by(month) %>% summarize(mn = round(mean(numSunDay),2)) %>% arrange(desc(mn))
-Sunny %>% ggplot(aes(x = reorder(month,mn), y = mn - 5)) + geom_bar(stat = 'identity') + coord_flip() + xlab("Months") + ylab("Mean Number of Sunny Days - 5") + ggtitle("Average Number of Sunny Days per Month")
+Sunny <- MonthlyWeather %>% select(month,year,numSunDay)  %>% group_by(month) %>% summarize(mn = round(mean(numSunDay, na.rm = TRUE),2)) %>% arrange(desc(mn))
+Sunny %>% ggplot(aes(x = reorder(month,mn), y = mn - 5)) + geom_bar(stat = 'identity') + coord_flip() + xlab("Months") + ylab("Mean Number of Sunny Days - 5") + ggtitle("Average Number of Sunny Days per Month") + geom_text(aes(label = mn),nudge_y = 0.5, size = 2)
 ```
 
 December has on average 8.4 sunny days which is the lowest average number of sunny days a month has in the year. July has on average 15.3 sunny days which is the highest average number of sunny days a month has in the year.
