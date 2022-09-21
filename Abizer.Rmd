@@ -20,7 +20,7 @@ glimpse(MonthlyWeather)
 library(ggplot2)
 library(dplyr)
 Consistent <- MonthlyWeather %>% select(month,year,avgTmpDiffF)  %>% group_by(month) %>% summarize(mn = round(mean(avgTmpDiffF,na.rm = TRUE),2))%>% arrange(mn)
-Consistent %>% ggplot(aes(x = reorder(month,mn), y = mn-15)) + geom_bar(stat = 'identity')  +  xlab("Months") + ylab("Average Temperature Range (F) -15 ") + coord_flip() +ggtitle("Average Temperature Range per Month") + geom_text(aes(label = mn),nudge_y = 0.5, size = 2)
+Consistent %>% ggplot(aes(x = reorder(month,mn), y = mn)) + geom_bar(stat = 'identity')  +  xlab("Months") + ylab("Average Temperature Range (F)") + coord_flip(ylim = c(16,23)) +ggtitle("Average Temperature Range per Month") + geom_text(aes(label = mn),nudge_y = 0.5, size = 2)  
 ```
 
 December has the most consistent daily temperature as the average of the daily max - min temperature in June is the lowest at 16.1 degrees F. June has the most variable daily temperatures as the average of the daily max - min temperature in June is the highest at 22.4 degrees F.
@@ -28,7 +28,7 @@ December has the most consistent daily temperature as the average of the daily m
 library(ggplot2)
 library(dplyr)
 Sunny <- MonthlyWeather %>% select(month,year,numSunDay)  %>% group_by(month) %>% summarize(mn = round(mean(numSunDay, na.rm = TRUE),2)) %>% arrange(desc(mn))
-Sunny %>% ggplot(aes(x = reorder(month,mn), y = mn - 5)) + geom_bar(stat = 'identity') + coord_flip() + xlab("Months") + ylab("Mean Number of Sunny Days - 5") + ggtitle("Average Number of Sunny Days per Month") + geom_text(aes(label = mn),nudge_y = 0.5, size = 2)
+Sunny %>% ggplot(aes(x = reorder(month,mn), y = mn )) + geom_bar(stat = 'identity') + coord_flip(ylim = c(8,15.5)) + xlab("Months") + ylab("Mean Number of Sunny Days") + ggtitle("Average Number of Sunny Days per Month") + geom_text(aes(label = mn),nudge_y = 0.5, size = 2)
 ```
 
 December has on average 8.4 sunny days which is the lowest average number of sunny days a month has in the year. July has on average 15.3 sunny days which is the highest average number of sunny days a month has in the year.
@@ -39,7 +39,7 @@ library(ggplot2)
 MonthlyWeather$state <- tolower(MonthlyWeather$state)
 Temps <- MonthlyWeather %>% select(year,avgTmpDiffF,state,city,longitude,latitude) %>% filter(year == 2016) %>% group_by(state) %>% summarize(mn = round(mean(avgTmpDiffF),2))%>% arrange(mn)
 MainStates <- map_data("state")
-ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = mn), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Range of Temperatures in US States") + scale_fill_distiller(palette = "Oranges")
+ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = mn), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Range of Temperatures in US States") + scale_fill_distiller(palette = "Oranges", direction = 1)
 ```
 
 States in the East have more consistent temperatures than states in the West.
@@ -49,7 +49,7 @@ library(ggplot2)
 MonthlyWeather$state <- tolower(MonthlyWeather$state)
 Temps <- MonthlyWeather %>% select(year,numSunDay ,state,city,longitude,latitude) %>% filter(year == 2016) %>% group_by(state) %>% summarize(mn = round(mean(numSunDay),2))%>% arrange(mn)
 MainStates <- map_data("state")
-ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = mn), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Number of Sunny Days in US States") + scale_fill_gradient(low = "lightpink", high = "purple4")
+ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = mn), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Number of Sunny Days in US States") + scale_fill_distiller(palette = "Reds",direction = 1)
 ```
 
 3. What criteria are important to you for choosing a city to live in? Create some figures that help determine which city you would live in based on that criteria. Would you choose one particular city to live in year round or would you migrate to different locations depending on the season?
@@ -63,16 +63,16 @@ Temps <- MonthlyWeather %>% select(year,avgMaxTmpF,avgMinTmpF ,avgPrecipIn,avgWi
 
 ```{r echo = FALSE}
 MainStates <- map_data("state")
-ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = min_temp), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Minimum Temperature in US States") + scale_fill_distiller()
+ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = min_temp), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Minimum Temperature in US States") + scale_fill_distiller(direction = 1)
 ```
 ```{r echo = FALSE}
 MainStates <- map_data("state")
-ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = rain), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Precipitation in US States") + scale_fill_distiller()
+ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = rain), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Precipitation in US States") + scale_fill_distiller(direction = 1)
 ```
 
 ```{r echo = FALSE}
 MainStates <- map_data("state")
-ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = wind_speed), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Wind Speed in US States") + scale_fill_distiller()
+ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = wind_speed), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Wind Speed in US States") + scale_fill_distiller(palette = "Gray",direction = 1)
 ```
 
 ## Turn in:
