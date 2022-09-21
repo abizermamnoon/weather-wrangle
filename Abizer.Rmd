@@ -16,7 +16,7 @@ glimpse(MonthlyWeather)
 ```
 
 1. Suppose you don't like big daily temperature swings and cloudy days. Which month(s) or time of year have the most consistent daily temps? the most variable daily temps? Which month(s) or time of year have the most sunny days? the fewest sunny days?
-```{r}
+```{r echo = FALSE}
 library(ggplot2)
 library(dplyr)
 Consistent <- MonthlyWeather %>% select(month,year,avgTmpDiffF)  %>% group_by(month) %>% summarize(mn = round(mean(avgTmpDiffF),2))%>% arrange(mn)
@@ -24,7 +24,7 @@ Consistent %>% ggplot(aes(x = reorder(month,mn), y = mn-15)) + geom_bar(stat = '
 ```
 
 December has the most consistent daily temperature as the average of the daily max - min temperature in June is the lowest at 16.1 degrees F. June has the most variable daily temperatures as the average of the daily max - min temperature in June is the highest at 22.4 degrees F.
-```{r}
+```{r echo = FALSE}
 library(ggplot2)
 library(dplyr)
 Sunny <- MonthlyWeather %>% select(month,year,numSunDay)  %>% group_by(month) %>% summarize(mn = round(mean(numSunDay),2)) %>% arrange(desc(mn))
@@ -34,7 +34,7 @@ Sunny %>% ggplot(aes(x = reorder(month,mn), y = mn - 5)) + geom_bar(stat = 'iden
 December has on average 8.4 sunny days which is the lowest average number of sunny days a month has in the year. July has on average 15.3 sunny days which is the highest average number of sunny days a month has in the year.
 
 2. Consider 2016 weather data. Which regions or states  have the most consistent daily temps? the most variable daily temps? Which regions or states have the most sunny days? the fewest sunny days?
-```{r}
+```{r echo = FALSE}
 library(ggplot2)
 MonthlyWeather$state <- tolower(MonthlyWeather$state)
 Temps <- MonthlyWeather %>% select(year,avgTmpDiffF,state,city,longitude,latitude) %>% filter(year == 2016) %>% group_by(state) %>% summarize(mn = round(mean(avgTmpDiffF),2))%>% arrange(mn)
@@ -44,7 +44,7 @@ ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = 
 
 States in the East have more consistent temperatures than states in the West.
 
-```{r}
+```{r echo = FALSE}
 library(ggplot2)
 MonthlyWeather$state <- tolower(MonthlyWeather$state)
 Temps <- MonthlyWeather %>% select(year,numSunDay ,state,city,longitude,latitude) %>% filter(year == 2016) %>% group_by(state) %>% summarize(mn = round(mean(numSunDay),2))%>% arrange(mn)
@@ -53,6 +53,27 @@ ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = 
 ```
 
 3. What criteria are important to you for choosing a city to live in? Create some figures that help determine which city you would live in based on that criteria. Would you choose one particular city to live in year round or would you migrate to different locations depending on the season?
+
+
+```{r echo = FALSE}
+library(ggplot2)
+MonthlyWeather$state <- tolower(MonthlyWeather$state)
+Temps <- MonthlyWeather %>% select(year,avgMaxTmpF,avgMinTmpF ,avgPrecipIn,avgWindMPH,state,city,longitude,latitude) %>% filter(year == 2016) %>% group_by(state) %>% summarize(max_temp = round(mean(avgMaxTmpF),2), min_temp = round(mean(avgMinTmpF),2), rain = round(mean(avgPrecipIn),2), wind_speed = round(mean(avgWindMPH),2))
+```
+
+```{r echo = FALSE}
+MainStates <- map_data("state")
+ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = min_temp), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Minimum Temperature in US States") + scale_fill_distiller()
+```
+```{r echo = FALSE}
+MainStates <- map_data("state")
+ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = rain), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Precipitation in US States") + scale_fill_distiller()
+```
+
+```{r echo = FALSE}
+MainStates <- map_data("state")
+ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = wind_speed), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Wind Speed in US States") + scale_fill_distiller()
+```
 
 ## Turn in:
 Push your .Rmd and .md to GitHub by Tue, Sep. 27 11:59PM. Hide all code in your knitted doc so I just see graphs, interpretations, and section headers for each part. 
