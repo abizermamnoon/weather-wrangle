@@ -57,9 +57,11 @@ ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = 
 
 ```{r echo = FALSE}
 library(ggplot2)
+library(dplyr)
 MonthlyWeather$state <-tolower(MonthlyWeather$state)
 
 Temps <- MonthlyWeather %>% select(year,avgMaxTmpF,avgMinTmpF ,avgPrecipIn,avgWindMPH,state,city,longitude,latitude) %>% filter(year == 2016) %>% group_by(state) %>% summarize(max_temp = round(mean(avgMaxTmpF),2), min_temp = round(mean(avgMinTmpF),2), rain = round(mean(avgPrecipIn),2), wind_speed = round(mean(avgWindMPH),2)) %>% mutate(min_temp_point = ifelse(min_temp > 60 & min_temp <= 70, 2, 1), rain_point = ifelse(rain < 0.05, 2,1), wind_point = ifelse(wind_speed < 12, 2, 1), cum = min_temp - 300*rain - wind_speed)
+
 ```
 
 ```{r echo = FALSE}
