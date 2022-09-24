@@ -26,19 +26,19 @@ glimpse(MonthlyWeather)
 ```{r echo = FALSE}
 library(ggplot2)
 library(dplyr)
-Consistent <- MonthlyWeather %>% select(month,year,avgTmpDiffF)  %>% group_by(month) %>% summarize(mn = round(mean(avgTmpDiffF),2))%>% arrange(mn)
-Consistent %>% ggplot(aes(x = reorder(month,mn), y = mn-15)) + geom_bar(stat = 'identity')  + coord_flip() + xlab("Months") + ylab("Average Temperature Range (F) -15 ") + ggtitle("Average Temperature Range per Month")
+Consistent <- MonthlyWeather %>% select(month,year,avgTmpDiffF)  %>% group_by(month) %>% summarize(mn = round(mean(avgTmpDiffF,na.rm = TRUE),2))%>% arrange(mn)
+Consistent %>% ggplot(aes(x = reorder(month,mn), y = mn)) + geom_bar(stat = 'identity')  +  xlab("Months") + ylab("Average Temperature Range (F)") + coord_flip(ylim = c(16,23)) +ggtitle("Average Temperature Range per Month") + geom_text(aes(label = mn),nudge_y = 0.5, size = 2)  
 ```
 
-December has the most consistent daily temperature as the average of the daily max - min temperature in June is the lowest at 16.1 degrees F. June has the most variable daily temperatures as the average of the daily max - min temperature in June is the highest at 22.4 degrees F.Based on the graph, September is somewhat of an outliar since it is equal to 0. 
+December has the most consistent daily temperature as the average of the daily max - min temperature in June is the lowest at 16.1 degrees F. June has the most variable daily temperatures as the average of the daily max - min temperature in June is the highest at 22.4 degrees F.
 
 
-#The code below depicts a bar graph of the mean number of sunny day vs. months. The bar graph is arranged in decending order from the month with the most days of sunny days to the lowest.
+#The code below depicts a bar graph of the mean number of sunny day vs. months. The bar graph is arranged in decending order from the month with the highest average number of sunny days to the least
 ```{r echo = FALSE}
 library(ggplot2)
 library(dplyr)
-Sunny <- MonthlyWeather %>% select(month,year,numSunDay)  %>% group_by(month) %>% summarize(mn = round(mean(numSunDay),2)) %>% arrange(desc(mn))
-Sunny %>% ggplot(aes(x = reorder(month,mn), y = mn - 5)) + geom_bar(stat = 'identity') + coord_flip() + xlab("Months") + ylab("Mean Number of Sunny Days - 5") + ggtitle("Average Number of Sunny Days per Month")
+Sunny <- MonthlyWeather %>% select(month,year,numSunDay)  %>% group_by(month) %>% summarize(mn = round(mean(numSunDay, na.rm = TRUE),2)) %>% arrange(desc(mn))
+Sunny %>% ggplot(aes(x = reorder(month,mn), y = mn )) + geom_bar(stat = 'identity') + coord_flip(ylim = c(8,15.5)) + xlab("Months") + ylab("Mean Number of Sunny Days") + ggtitle("Average Number of Sunny Days per Month") + geom_text(aes(label = mn),nudge_y = 0.5, size = 2)
 ```
 
 December has on average 8.4 sunny days which is the lowest average number of sunny days a month has in the year. July has on average 15.3 sunny days which is the highest average number of sunny days a month has in the year.
@@ -52,10 +52,10 @@ library(ggplot2)
 MonthlyWeather$state <- tolower(MonthlyWeather$state)
 Temps <- MonthlyWeather %>% select(year,avgTmpDiffF,state,city,longitude,latitude) %>% filter(year == 2016) %>% group_by(state) %>% summarize(mn = round(mean(avgTmpDiffF),2))%>% arrange(mn)
 MainStates <- map_data("state")
-ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = mn), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Range of Temperatures in US States") + scale_fill_distiller(palette = "Oranges")
+ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = mn), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Range of Temperatures in US States") + scale_fill_distiller(palette = "Oranges", direction = 1)
 ```
 
-States in the East have more consistent temperatures than states in the West.There are more variable sunny days in the West. Florida is the state with the lowest average temperature range while New Mexico is state with the most highest average temperature range. 
+States in the East have more consistent temperatures than states in the West.There are more variable temperatures in the West. Florida is the state with the lowest average temperature range while New Mexico is state with the most highest average temperature range. 
 
 
 
@@ -65,9 +65,10 @@ library(ggplot2)
 MonthlyWeather$state <- tolower(MonthlyWeather$state)
 Temps <- MonthlyWeather %>% select(year,numSunDay ,state,city,longitude,latitude) %>% filter(year == 2016) %>% group_by(state) %>% summarize(mn = round(mean(numSunDay),2))%>% arrange(mn)
 MainStates <- map_data("state")
-ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = mn), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Number of Sunny Days in US States") + scale_fill_gradient(low = "lightpink", high = "purple4")
+ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = mn), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Number of Sunny Days in US States") + scale_fill_distiller(palette = "Reds",direction = 1)
 ```
-States in the central part of the US tend to have more sunny days. While states in the midwest and North East tend to have the least number of sunny days. New Mexico has the most average number of sunny days while a state in the North East is the state with the lowest number of sunny days.  
+
+States in the central part of the US tend to have on average more sunny days. While states in the midwest and North East tend to have on average the least number of sunny days. New Mexico on average has the highest number of sunny days while a state in the North East is the state with the lowest number of sunny days.  
 
 3. What criteria are important to you for choosing a city to live in? Create some figures that help determine which city you would live in based on that criteria. Would you choose one particular city to live in year round or would you migrate to different locations depending on the season?
 
@@ -83,27 +84,27 @@ Temps <- MonthlyWeather %>% select(year,avgMaxTmpF,avgMinTmpF ,avgPrecipIn,avgWi
 
 
 
-#The code below depicts a map of the US and its average number of sunny days range in 2016. Each US state in the map is colored with a shade of blue that represents a number of average minimum temperature. The higher the number, the darker the shade of blue the state will be.
-
+#The code below depicts a map of the US and its average minimum temperatures for each state in 2016. Each US state in the map is colored with a shade of blue that represents average minimum temperature. The higher the number, the darker the shade of blue the state will be.
 ```{r echo = FALSE}
 MainStates <- map_data("state")
-ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = min_temp), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Minimum Temperature in US States") + scale_fill_distiller()
+ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = min_temp), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Minimum Temperature in US States") + scale_fill_distiller(direction = 1)
 ```
-States in the Northern part of the US tend to have a lower average number of minimum temperature while states in the south tend to have a higher average number of temperature. 
+States in the Northern part of the US tend to have a lower average minimum temperature while states in the south tend to have a higher average minimum temperature. 
 
 
-#The code below depicts a map of the US and its average number of percipitation in 2016. Each US state in the map is colored with a shade of blue that represents a number of amount of percipitation. The higher the number, the darker the shade of blue the state will be.
+#The code below depicts a map of the US and its average percipitation in 2016. Each US state in the map is colored with a shade of blue that represents an amount of percipitation. The higher the number, the darker the shade of blue the state will be.
 ```{r echo = FALSE}
 MainStates <- map_data("state")
-ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = rain), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Precipitation in US States") + scale_fill_distiller()
+ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = rain), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Precipitation in US States") + scale_fill_distiller(direction = 1)
 ```
+
 States in the south west part of the US tend to have the most average amount of precipitation, with Louisiana having the most. States in the Western part of the US tend to have the least amount of precipitation. 
 
 
-#The code below depicts a map of the US and its average number of wind speed in 2016. Each US state in the map is colored with a shade of blue that represents a number of wind speed. The higher the number, the darker the shade of blue the state will be.
+#The code below depicts a map of the US and its average wind speed in 2016. Each US state in the map is colored with a shade of blue that represents wind speed. The higher the number, the darker the shade of blue the state will be.
 ```{r echo = FALSE}
 MainStates <- map_data("state")
-ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = wind_speed), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Wind Speed in US States") + scale_fill_distiller()
+ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = wind_speed), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Wind Speed in US States") + scale_fill_gradient(low = "lightpink",high = "purple4")
 ```
 States around Arkansas tend to have lower wind speeds. The place with the most wind speed is Wyioming. 
 

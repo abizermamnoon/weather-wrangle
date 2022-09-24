@@ -29,21 +29,16 @@ explanation/interpretation, and the readability of your R code.
 \#The code below depicts a bar graph of the average temperature range
 vs. months. The bar graph is arranged in decending order from the month
 with the highest temperature range to the lowest.
-
-    ## Warning: Removed 1 rows containing missing values (position_stack).
-
 ![](FinalProject_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 December has the most consistent daily temperature as the average of the
 daily max - min temperature in June is the lowest at 16.1 degrees F.
 June has the most variable daily temperatures as the average of the
-daily max - min temperature in June is the highest at 22.4 degrees
-F.Based on the graph, September is somewhat of an outliar since it is
-equal to 0.
+daily max - min temperature in June is the highest at 22.4 degrees F.
 
 \#The code below depicts a bar graph of the mean number of sunny day
 vs. months. The bar graph is arranged in decending order from the month
-with the most days of sunny days to the lowest.
+with the highest average number of sunny days to the least
 ![](FinalProject_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 December has on average 8.4 sunny days which is the lowest average
@@ -62,7 +57,7 @@ darker the shade of orange the state will be.
 ![](FinalProject_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 States in the East have more consistent temperatures than states in the
-West.There are more variable sunny days in the West. Florida is the
+West.There are more variable temperatures in the West. Florida is the
 state with the lowest average temperature range while New Mexico is
 state with the most highest average temperature range.
 
@@ -70,11 +65,13 @@ state with the most highest average temperature range.
 days range in 2016. Each US state in the map is colored with a shade of
 purple that represents a number of sunny days. The higher the number,
 the darker the shade of purple the state will be.  
-![](FinalProject_files/figure-gfm/unnamed-chunk-5-1.png)<!-- --> States
-in the central part of the US tend to have more sunny days. While states
-in the midwest and North East tend to have the least number of sunny
-days. New Mexico has the most average number of sunny days while a state
-in the North East is the state with the lowest number of sunny days.
+![](FinalProject_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+States in the central part of the US tend to have on average more sunny
+days. While states in the midwest and North East tend to have on average
+the least number of sunny days. New Mexico on average has the highest
+number of sunny days while a state in the North East is the state with
+the lowest number of sunny days.
 
 3.  What criteria are important to you for choosing a city to live in?
     Create some figures that help determine which city you would live in
@@ -82,29 +79,29 @@ in the North East is the state with the lowest number of sunny days.
     in year round or would you migrate to different locations depending
     on the season?
 
-\#The code below depicts a map of the US and its average number of sunny
-days range in 2016. Each US state in the map is colored with a shade of
-blue that represents a number of average minimum temperature. The higher
-the number, the darker the shade of blue the state will be.
-
+\#The code below depicts a map of the US and its average minimum
+temperatures for each state in 2016. Each US state in the map is colored
+with a shade of blue that represents average minimum temperature. The
+higher the number, the darker the shade of blue the state will be.
 ![](FinalProject_files/figure-gfm/unnamed-chunk-7-1.png)<!-- --> States
-in the Northern part of the US tend to have a lower average number of
-minimum temperature while states in the south tend to have a higher
-average number of temperature.
+in the Northern part of the US tend to have a lower average minimum
+temperature while states in the south tend to have a higher average
+minimum temperature.
 
-\#The code below depicts a map of the US and its average number of
-percipitation in 2016. Each US state in the map is colored with a shade
-of blue that represents a number of amount of percipitation. The higher
-the number, the darker the shade of blue the state will be.
-![](FinalProject_files/figure-gfm/unnamed-chunk-8-1.png)<!-- --> States
-in the south west part of the US tend to have the most average amount of
-precipitation, with Louisiana having the most. States in the Western
-part of the US tend to have the least amount of precipitation.
+\#The code below depicts a map of the US and its average percipitation
+in 2016. Each US state in the map is colored with a shade of blue that
+represents an amount of percipitation. The higher the number, the darker
+the shade of blue the state will be.
+![](FinalProject_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
-\#The code below depicts a map of the US and its average number of wind
-speed in 2016. Each US state in the map is colored with a shade of blue
-that represents a number of wind speed. The higher the number, the
-darker the shade of blue the state will be.
+States in the south west part of the US tend to have the most average
+amount of precipitation, with Louisiana having the most. States in the
+Western part of the US tend to have the least amount of precipitation.
+
+\#The code below depicts a map of the US and its average wind speed in
+2016. Each US state in the map is colored with a shade of blue that
+represents wind speed. The higher the number, the darker the shade of
+blue the state will be.
 ![](FinalProject_files/figure-gfm/unnamed-chunk-9-1.png)<!-- --> States
 around Arkansas tend to have lower wind speeds. The place with the most
 wind speed is Wyioming.
