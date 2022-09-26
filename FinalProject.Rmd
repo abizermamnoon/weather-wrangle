@@ -95,6 +95,7 @@ States in the Northern part of the US tend to have a lower average minimum tempe
 
 
 #The code below depicts a map of the US and its average percipitation in 2016. Each US state in the map is colored with a shade of blue that represents an amount of percipitation. The higher the number, the darker the shade of blue the state will be.
+
 ```{r echo = FALSE}
 MainStates <- map_data("state")
 ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = rain), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Precipitation in US States") + scale_fill_distiller(direction = 1)
@@ -104,10 +105,12 @@ States in the south west part of the US tend to have the most average amount of 
 
 
 #The code below depicts a map of the US and its average wind speed in 2016. Each US state in the map is colored with a shade of purple that represents wind speed. The higher the number, the darker the shade of purple the state will be.
+
 ```{r echo = FALSE}
 MainStates <- map_data("state")
 ggplot() + coord_quickmap() + geom_map(data = Temps, aes(map_id = state, fill = wind_speed), map = MainStates) + expand_limits(x = MainStates$long, y = MainStates$lat) + ggtitle(" 2016 Average Wind Speed in US States") + scale_fill_gradient(low = "lightpink",high = "purple4")
 ```
+
 States around Arkansas tend to have lower wind speeds. The place with the most wind speed is Wyioming. 
 
 
@@ -117,6 +120,7 @@ MainStates <- map_data("state")
 Temps <- arrange(Temps, desc(cum)) 
 Temps[1:10,] %>% ggplot(aes(x = reorder(state,cum), y = cum )) + geom_bar(stat = 'identity') + coord_flip() + xlab("States") + ylab("Cumulative Score") + ggtitle("Ranking of States") + geom_text(aes(label = cum),nudge_y = 2, size = 2)
 ```
+
 The equation we came up with goes as follows: as minimum temperature increases the rating increases, for wind speed there is a negative relation as the higher the wind speed the lower the rating, for rain we multiplied the variable by 300 in order to make it the same range as the rest (also negative relation). According to our bar graph, Hawaii is the best place to live in with a score of 42.24. Most states that made it to the top 10 are states located in the South / Western part of the US.
 
 

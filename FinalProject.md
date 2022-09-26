@@ -100,6 +100,7 @@ average minimum temperature.
 in 2016. Each US state in the map is colored with a shade of blue that
 represents an amount of percipitation. The higher the number, the darker
 the shade of blue the state will be.
+
 ![](FinalProject_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 States in the south west part of the US tend to have the most average
@@ -110,12 +111,15 @@ Western part of the US tend to have the least amount of precipitation.
 2016. Each US state in the map is colored with a shade of purple that
 represents wind speed. The higher the number, the darker the shade of
 purple the state will be.
-![](FinalProject_files/figure-gfm/unnamed-chunk-9-1.png)<!-- --> States
-around Arkansas tend to have lower wind speeds. The place with the most
-wind speed is Wyioming.
 
-![](FinalProject_files/figure-gfm/unnamed-chunk-10-1.png)<!-- --> The
-equation we came up with goes as follows: as minimum temperature
+![](FinalProject_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
+States around Arkansas tend to have lower wind speeds. The place with
+the most wind speed is Wyioming.
+
+![](FinalProject_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+
+The equation we came up with goes as follows: as minimum temperature
 increases the rating increases, for wind speed there is a negative
 relation as the higher the wind speed the lower the rating, for rain we
 multiplied the variable by 300 in order to make it the same range as the
