@@ -34,7 +34,7 @@ with the highest temperature range to the lowest.
 ![](FinalProject_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 December has the most consistent daily temperature as the average of the
-daily max - min temperature in June is the lowest at 16.1 degrees F.
+daily max - min temperature in December is the lowest at 16.1 degrees F.
 June has the most variable daily temperatures as the average of the
 daily max - min temperature in June is the highest at 22.4 degrees F.
 
@@ -61,12 +61,12 @@ darker the shade of orange the state will be.
 States in the East have more consistent temperatures than states in the
 West.There are more variable temperatures in the West. Florida is the
 state with the lowest average temperature range while New Mexico is
-state with the most highest average temperature range.
+state with the highest average temperature range.
 
 \#The code below depicts a map of the US and its average number of sunny
 days range in 2016. Each US state in the map is colored with a shade of
-purple that represents a number of sunny days. The higher the number,
-the darker the shade of purple the state will be.  
+red that represents a number of sunny days. The higher the number, the
+darker the shade of red the state will be.  
 ![](FinalProject_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 States in the central part of the US tend to have on average more sunny
@@ -81,14 +81,21 @@ the lowest number of sunny days.
     in year round or would you migrate to different locations depending
     on the season?
 
+\#The code below is the equation we came up with and it goes as follows:
+as minimum temperature increases the rating increases, for wind speed
+there is a negative relation as the higher the wind speed the lower the
+rating, for rain we multiplied the variable by 300 in order to make it
+the same range as the rest (also negative relation).
+
 \#The code below depicts a map of the US and its average minimum
 temperatures for each state in 2016. Each US state in the map is colored
 with a shade of blue that represents average minimum temperature. The
 higher the number, the darker the shade of blue the state will be.
-![](FinalProject_files/figure-gfm/unnamed-chunk-7-1.png)<!-- --> States
-in the Northern part of the US tend to have a lower average minimum
-temperature while states in the south tend to have a higher average
-minimum temperature.
+![](FinalProject_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+States in the Northern part of the US tend to have a lower average
+minimum temperature while states in the south tend to have a higher
+average minimum temperature.
 
 \#The code below depicts a map of the US and its average percipitation
 in 2016. Each US state in the map is colored with a shade of blue that
@@ -101,9 +108,9 @@ amount of precipitation, with Louisiana having the most. States in the
 Western part of the US tend to have the least amount of precipitation.
 
 \#The code below depicts a map of the US and its average wind speed in
-2016. Each US state in the map is colored with a shade of blue that
+2016. Each US state in the map is colored with a shade of purple that
 represents wind speed. The higher the number, the darker the shade of
-blue the state will be.
+purple the state will be.
 ![](FinalProject_files/figure-gfm/unnamed-chunk-9-1.png)<!-- --> States
 around Arkansas tend to have lower wind speeds. The place with the most
 wind speed is Wyioming.
@@ -114,7 +121,8 @@ increases the rating increases, for wind speed there is a negative
 relation as the higher the wind speed the lower the rating, for rain we
 multiplied the variable by 300 in order to make it the same range as the
 rest (also negative relation). According to our bar graph, Hawaii is the
-best place to live in.
+best place to live in with a score of 42.24. Most states that made it to
+the top 10 are states located in the South / Western part of the US.
 
 ## Turn in:
 
