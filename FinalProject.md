@@ -5,8 +5,6 @@ Weather Data Project
 
 # Team-Project-1
 
-# 
-
 **Partner names: Abizer Mamnoon, Luis Gomez**
 
 ## Data
