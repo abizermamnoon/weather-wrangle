@@ -1,10 +1,11 @@
-Problem Set 2
+Weather Data Project
 ================
-Abizer and Luis
 
 ## 
 
 # Team-Project-1
+
+# 
 
 **Partner names: Abizer Mamnoon, Luis Gomez**
 
